@@ -1,73 +1,69 @@
-# React + TypeScript + Vite
+# HR Workflow Designer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🚀 **Live Demo**: [tradence-workflow.vercel.app](https://tradence-workflow.vercel.app)
 
-Currently, two official plugins are available:
+🛠️ **Built with**: React, React Flow, Tailwind CSS, Zustand
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+A professional HR Workflow Designer that lets you visually create, configure, and manage human resources processes using a drag-and-drop canvas.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Features
 
-## Expanding the ESLint configuration
+- **Drag & Drop Canvas** — Build workflows by dragging node components from the sidebar onto a React Flow canvas.
+- **5 Node Types** — Start, Manual Task, Approval, Automated Action, and End nodes, each with a unique visual identity.
+- **Properties Panel** — Select any node to edit its configuration in a dynamic sidebar form (Strategy Pattern).
+- **Dynamic Automation Forms** — Selecting an automation (e.g. "Send Email") dynamically renders its required parameter fields.
+- **Real-time Sync** — All form changes update the canvas nodes instantly via Zustand.
+- **Validation** — Required fields show red borders and inline error messages.
+- **Mock API** — Simulated network latency for fetching automation tasks.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🏗️ Architecture
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── components/
+│   ├── canvas/        # WorkflowCanvas, Sidebar
+│   ├── forms/         # NodePropertiesPanel + per-node forms (Strategy Pattern)
+│   └── nodes/         # BaseNode wrapper + StartNode, TaskNode, etc.
+├── hooks/
+│   ├── useWorkflowStore.ts   # Zustand store (nodes, edges, CRUD)
+│   ├── useNodeProperty.ts    # Controlled form helper
+│   └── useMockApi.ts         # Async automation fetcher
+├── services/
+│   └── mockApi.ts             # Simulated API with sleep()
+└── types/
+    └── workflow.types.ts      # NodeData, NodeType, AppNode
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# Install dependencies
+npm install
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Start dev server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
+
+## 📦 Tech Stack
+
+| Layer            | Technology         |
+| ---------------- | ------------------ |
+| Framework        | React 19 + TypeScript |
+| Build Tool       | Vite 8             |
+| Styling          | Tailwind CSS 4     |
+| State Management | Zustand 5          |
+| Flow Engine      | @xyflow/react 12   |
+| Icons            | Lucide React       |
+| Deployment       | Vercel             |
+
+## 📄 License
+
+MIT
